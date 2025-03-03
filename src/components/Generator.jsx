@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import SectionWrapper from './SectionWrapper'
 import { SCHEMES, WORKOUTS } from '../utils/exercise'
+import Button from './Button'
 
 function Header(props) {
   const { index, title, description } = props
@@ -15,12 +16,10 @@ function Header(props) {
   )
 }
 
-const Generator = () => {
+const Generator = ({ muscles, setMuscles, poison, setPoison, goals, setGoal, updateWorkout }) => {
 
   const [showModal, setShowModal] = useState(false)
-  const [poison, setPoison] = useState('individual')
-  const [muscles, setMuscles] = useState([])
-  const [goals, setGoal] = useState('strength_power')
+
 
   function toggleModal() {
     setShowModal(!showModal)
@@ -47,8 +46,8 @@ const Generator = () => {
   }
 
   return (
-    <div>
-      <SectionWrapper header={"generate your workout"} title={['It\'s', 'Huge', 'o\'clock']}>
+    <div className='text-center mb-16'>
+      <SectionWrapper id={"generate"} header={"generate your workout"} title={['It\'s', 'Huge', 'o\'clock']}>
 
         {/* Section 1 :pick*/}
 
@@ -59,7 +58,7 @@ const Generator = () => {
               <button onClick={() => {
                 setMuscles([])
                 setPoison(type)
-              }} className={`bg-slate-950 border py-4 rounded-lg duration-200 hover:border-blue-800 ${type === poison ? "border-blue-600" : "border-blue-400"}`} key={typeIndex}>
+              }} className={`bg-slate-950 border py-4 rounded-lg duration-200 px-4 hover:border-blue-800 ${type === poison ? "border-blue-600" : "border-blue-400"}`} key={typeIndex}>
                 <p className='capitalize'>{type.replaceAll('_', " ")}</p>
               </button>
             )
@@ -81,7 +80,7 @@ const Generator = () => {
                 return (
                   <button onClick={() => {
                     updateMuscles(muscleGroup)
-                  }} className={`hover:text-blue-400 duration-200 ${muscles.includes(muscleGroup) ? 'text-blue-400' : ""}`} key={muscleGroupIndex}>
+                  }} className={`hover:text-blue-400 duration-200 px-4 ${muscles.includes(muscleGroup) ? 'text-blue-400' : ""}`} key={muscleGroupIndex}>
                     < p className='capitalize'> {muscleGroup.replaceAll('_', "")}</p>
                   </button>
                 )
@@ -94,7 +93,7 @@ const Generator = () => {
         {/* Section 3 : ultimate goal*/}
 
         < Header index={'03'} title="Become Juggernaut" description="Select your ultimate goal" > </Header  >
-        <div className='grid grid-cols-3 gap-4'>
+        <div className='grid gird-cols-1 sm:grid-cols-3 gap-4'>
           {Object.keys(SCHEMES).map((scheme, schemeIndex) => {
             return (
               <button onClick={() => {
@@ -106,8 +105,9 @@ const Generator = () => {
           })}
         </div>
 
+        <Button func={updateWorkout} text={"Formulate"}></Button>
       </SectionWrapper >
-    </div >
+    </div>
   )
 }
 
