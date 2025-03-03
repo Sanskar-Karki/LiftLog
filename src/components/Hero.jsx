@@ -18,7 +18,7 @@ const Hero = () => {
       </p>
       <Button func={()=>{
         window.location.href = '#generate'
-      }} text={"Accepr & Begin"} />
+      }} text={"Accept & Begin"} />
 
     </div>
 
